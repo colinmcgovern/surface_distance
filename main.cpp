@@ -264,7 +264,7 @@ vector<point3> find_heights(vector<vector<double> > surface, vector<point> inter
 
 			double height = lerp( 	surface[int(v.y)+1][int(v.x)],
 								 	surface[int(v.y)][int(v.x)+1],
-								 	pt(v.x - double(int(v.x)),v.y - double(int(v.y)))/pow(2,0.5)
+								 	v.y - double(int(v.y))
 								);
 
 			output.push_back(point3(v.x,v.y,height));
@@ -396,11 +396,27 @@ void run_surf_asserts(){
 	assert(int(surface_dist(surf_C,point(0,0),point(1,2)))==63,"test 12 failed");
 }
 
+void run_height_asserts(){
+
+	vector<vector<double> > surf = {{0,0},{1,0}};
+
+	vector<point> inter1 = {point(0.5,0.5)};
+	vector<point> inter2 = {point(0.33,0.66)};
+	vector<point> inter3 = {point(0.66,0.33)};
+
+
+
+	cout << find_heights(surf,inter1)[0].z << endl;
+	cout << find_heights(surf,inter2)[0].z << endl;
+	cout << find_heights(surf,inter3)[0].z << endl;
+}
+
 int main(int argc, char** argv)
 {
 
- 	//run_intersection_asserts();
-    //run_surf_asserts();
+ 	// run_intersection_asserts();
+  //   run_surf_asserts();
+	//run_height_asserts();
 
     if(argc != 6){
    		cout << "correct format './main filename.data x1 y1 x2 y2'" << endl;
